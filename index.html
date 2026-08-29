@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>設計與 AI 專業認證指南</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#14213D;
+    --ink-2:#1E2E52;
+    --paper:#FAFAF7;
+    --seal:#C1272D;
+    --seal-dark:#8f1c21;
+    --tech:#2EC4B6;
+    --graphite:#4A4A58;
+    --line:#E2DFD6;
+  }
+  *{box-sizing:border-box;}
+  body{
+    font-family:'Noto Sans TC', sans-serif;
+    background:var(--paper);
+    color:var(--graphite);
+  }
+  .font-display{ font-family:'Noto Serif TC', serif; }
+  .font-mono{ font-family:'IBM Plex Mono', monospace; }
+
+  /* ---- Ruler / blueprint divider ---- */
+  .ruler{
+    height:14px;
+    background-image: repeating-linear-gradient(
+      to right,
+      rgba(250,249,247,0.35) 0,
+      rgba(250,249,247,0.35) 1px,
+      transparent 1px,
+      transparent 8px
+    ),
+    repeating-linear-gradient(
+      to right,
+      rgba(250,249,247,0.75) 0,
+      rgba(250,249,247,0.75) 1px,
+      transparent 1px,
+      transparent 40px
+    );
+    background-color: var(--ink-2);
+  }
+
+  /* ---- Seal / stamp badge ---- */
+  .seal{
+    position:relative;
+    width:74px;
+    height:74px;
+    border-radius:9999px;
+    border:2.5px solid var(--seal);
+    color:var(--seal);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    transform:rotate(-9deg);
+    background:
+      repeating-radial-gradient(circle at 50% 50%, rgba(193,39,45,0.05) 0 2px, transparent 2px 4px);
+    flex-shrink:0;
+    transition:transform .35s ease;
+  }
+  .seal::before{
+    content:"";
+    position:absolute;
+    inset:5px;
+    border-radius:9999px;
+    border:1px solid var(--seal);
+    opacity:.55;
+  }
+  .cert-card:hover .seal{ transform:rotate(0deg) scale(1.06); }
+  .seal .seal-label{
+    font-size:9px;
+    letter-spacing:.1em;
+    font-family:'Noto Serif TC', serif;
+    line-height:1;
+  }
+  .seal .seal-price{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:10.5px;
+    font-weight:600;
+    line-height:1.3;
+    margin-top:2px;
+    text-align:center;
+  }
+
+  /* tech-accent seal variant for AI category */
+  .seal.tech{ border-color:var(--tech); color:#0f7a70; }
+  .seal.tech::before{ border-color:var(--tech); }
+
+  .cert-card{
+    background:#fff;
+    border:1px solid var(--line);
+    transition: box-shadow .25s ease, transform .25s ease, border-color .25s ease;
+  }
+  .cert-card:hover{
+    box-shadow: 0 18px 40px -18px rgba(20,33,61,0.35);
+    transform: translateY(-3px);
+    border-color: rgba(20,33,61,0.25);
+  }
+
+  .tab-btn{
+    font-family:'Noto Sans TC', sans-serif;
+    transition: all .2s ease;
+    border-bottom:2px solid transparent;
+  }
+  .tab-btn.active{
+    color:var(--ink);
+    border-bottom-color:var(--seal);
+    font-weight:700;
+  }
+  .tab-btn:not(.active):hover{
+    color:var(--ink);
+  }
+
+  .detail-table th{
+    font-family:'IBM Plex Mono', monospace;
+    font-weight:600;
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:#8a8791;
+    text-align:left;
+    padding:8px 10px;
+    border-bottom:1px solid var(--line);
+  }
+  .detail-table td{
+    padding:9px 10px;
+    font-size:13.5px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+  }
+  .detail-table tr:last-child td{ border-bottom:none; }
+
+  .chip{
+    font-family:'IBM Plex Mono', monospace;
+    font-size:11px;
+  }
+
+  details > summary{ list-style:none; cursor:pointer; }
+  details > summary::-webkit-details-marker{ display:none; }
+  .chevron{ transition: transform .25s ease; }
+  details[open] .chevron{ transform: rotate(180deg); }
+
+  .no-results{ display:none; }
+
+  /* subtle grid backdrop for hero, blueprint feel */
+  .blueprint-grid{
+    background-image:
+      linear-gradient(rgba(250,249,247,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(250,249,247,0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
+  ::selection{ background: var(--seal); color:#fff; }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ transition:none !important; animation:none !important; }
+  }
+
+  input:focus-visible, button:focus-visible, summary:focus-visible{
+    outline: 2px solid var(--tech);
+    outline-offset: 2px;
+  }
+</style>
+</head>
+<body class="antialiased">
+
+<!-- ============ HERO ============ -->
+<header class="relative overflow-hidden" style="background:var(--ink);">
+  <div class="absolute inset-0 blueprint-grid pointer-events-none"></div>
+  <div class="relative max-w-6xl mx-auto px-5 sm:px-8 pt-10 pb-12 sm:pt-14 sm:pb-16">
+
+    <!-- top bar -->
+    <div class="flex items-center justify-between mb-10 sm:mb-14">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-full border-2 flex items-center justify-center" style="border-color:var(--seal);">
+          <span class="block w-2 h-2 rounded-full" style="background:var(--seal);"></span>
+        </div>
+        <span class="font-display text-white/90 tracking-wide text-sm sm:text-base">聯成電腦</span>
+      </div>
+      <nav class="hidden sm:flex items-center gap-7 font-mono text-[12.5px] text-white/60">
+        <a href="#catalog" class="hover:text-white transition-colors">考科總覽</a>
+        <a href="#faq" class="hover:text-white transition-colors">常見問題</a>
+      </nav>
+      <button id="menuBtn" aria-label="開啟選單" aria-expanded="false" class="sm:hidden text-white/80 p-2 -mr-2">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      </button>
+    </div>
+    <!-- mobile menu -->
+    <div id="mobileMenu" class="hidden sm:hidden -mt-8 mb-8 font-mono text-[13px] text-white/70 flex flex-col gap-3 border-t border-white/10 pt-4">
+      <a href="#catalog">考科總覽</a>
+      <a href="#faq">常見問題</a>
+    </div>
+
+    <div class="max-w-3xl">
+      <p class="font-mono text-[12px] tracking-[0.2em] mb-4" style="color:var(--tech);">CERT · REGISTRY · TW EDITION</p>
+      <h1 class="font-display text-white text-[34px] leading-[1.2] sm:text-5xl sm:leading-[1.15] font-bold mb-5">
+        設計與 AI<br class="hidden sm:block"> 專業認證指南
+      </h1>
+      <p class="text-white/65 text-[15px] sm:text-base leading-relaxed max-w-xl">
+        彙整 TQC+、Certiport 國際認證、SketchUp SEC 與資策會生成式 AI 認證的指定考科與報名費用，一站式比較、快速找到適合你的檢定。
+      </p>
+    </div>
+
+    <!-- search -->
+    <div class="mt-8 sm:mt-10 max-w-xl">
+      <div class="relative">
+        <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="searchInput" type="text" placeholder="搜尋考科、機構或關鍵字，例如「Photoshop」、「AutoCAD」、「提示工程」..."
+          class="w-full bg-white/[0.07] border border-white/15 rounded-lg pl-11 pr-4 py-3.5 text-white text-[14px] placeholder-white/35 focus:outline-none focus:border-[var(--tech)] focus:bg-white/[0.1] transition-colors font-mono">
+      </div>
+    </div>
+  </div>
+
+  <div class="ruler"></div>
+</header>
+
+<!-- ============ TABS ============ -->
+<div class="sticky top-0 z-20 bg-[var(--paper)]/95 backdrop-blur border-b" style="border-color:var(--line);">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8">
+    <div id="tabBar" class="flex gap-1 overflow-x-auto no-scrollbar py-1" style="scrollbar-width:none;">
+      <!-- injected by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ============ CATALOG ============ -->
+<main id="catalog" class="max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-14">
+
+  <div class="flex items-baseline justify-between mb-6">
+    <p id="resultCount" class="font-mono text-[12px] text-[var(--graphite)]/60"></p>
+  </div>
+
+  <div id="cardGrid" class="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6"></div>
+
+  <div id="emptyState" class="no-results text-center py-20">
+    <p class="font-display text-xl mb-2" style="color:var(--ink);">查無符合的考科</p>
+    <p class="text-sm text-[var(--graphite)]/60">試試看其他關鍵字，或切換上方類別頁籤。</p>
+  </div>
+</main>
+
+<!-- ============ FAQ / NOTE STRIP ============ -->
+<section id="faq" class="border-t" style="border-color:var(--line); background:#fff;">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-12 sm:py-16 grid sm:grid-cols-3 gap-8">
+    <div>
+      <p class="font-mono text-[11px] tracking-widest mb-2" style="color:var(--seal);">01</p>
+      <h3 class="font-display font-bold mb-2" style="color:var(--ink);">怎麼挑選適合的認證？</h3>
+      <p class="text-sm leading-relaxed text-[var(--graphite)]/80">依你未來想投入的領域選擇：平面／網頁設計優先看 TQC+ 或 Adobe ACP；建築室內與工程優先看 AutoCAD／Revit（ACU）與 SketchUp SEC；若想切入 AI 應用，資策會的生成式 AI 系列是目前市場最新的敲門磚。</p>
+    </div>
+    <div>
+      <p class="font-mono text-[11px] tracking-widest mb-2" style="color:var(--seal);">02</p>
+      <h3 class="font-display font-bold mb-2" style="color:var(--ink);">費用會不會變動？</h3>
+      <p class="text-sm leading-relaxed text-[var(--graphite)]/80">本頁列出的是指定考科的報名費用，但實際金額可能因授權中心方案、是否含重考券、團報優惠等而調整，報名前請以官方公告為準。</p>
+    </div>
+    <div>
+      <p class="font-mono text-[11px] tracking-widest mb-2" style="color:var(--seal);">03</p>
+      <h3 class="font-display font-bold mb-2" style="color:var(--ink);">國際認證與國內認證差在哪？</h3>
+      <p class="text-sm leading-relaxed text-[var(--graphite)]/80">Certiport（ACU／ACP）與 SketchUp SEC 屬於原廠授權的國際證照，全球通用；TQC+ 與資策會認證則是台灣在地機構核發，較貼近本地職場與升學採認需求。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer style="background:var(--ink);">
+  <div class="max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-12">
+    <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
+      <div class="flex items-center gap-2.5">
+        <div class="w-7 h-7 rounded-full border-2 flex items-center justify-center" style="border-color:var(--seal);">
+          <span class="block w-1.5 h-1.5 rounded-full" style="background:var(--seal);"></span>
+        </div>
+        <span class="font-display text-white/80 text-sm">聯成電腦</span>
+      </div>
+      <p class="font-mono text-[11.5px] text-white/45 leading-relaxed max-w-xl sm:text-right">
+        本頁所列費用僅供初步參考與規劃使用，實際報名費用、考科內容與異動請以 TQC+、Certiport、SketchUp、資策會等各官方機構最新公告為準。
+      </p>
+    </div>
+    <div class="mt-8 pt-6 border-t border-white/10 font-mono text-[11px] text-white/30">
+      © 2026 設計與 AI 專業認證指南 · 資料彙整版本 v1.0
+    </div>
+  </div>
+</footer>
+
+<script>
+// ============ DATA ============
+const CERT_DATA = [
+  {
+    id: "tqc",
+    org: "TQC+ 專業設計人才認證",
+    orgShort: "TQC+",
+    category: "design",
+    categoryLabel: "TQC+ 專業設計人才認證",
+    accent: "seal",
+    summary: "台灣在地最普及的設計類技能檢定，本頁列出的考科聚焦程式與資料應用相關科目。",
+    subjects: [
+      { code: "PPY3", name: "程式語言", price: 1500 },
+      { code: "PSK3", name: "軟體開發知識", price: 800 },
+      { code: "PWA3", name: "網頁資料擷取與分析", price: 1800 },
+      { code: "PML3", name: "人工智慧：機器學習", price: 1800 }
+    ]
+  },
+  {
+    id: "certiport",
+    org: "Certiport 國際認證",
+    orgShort: "Certiport",
+    category: "international",
+    categoryLabel: "Certiport 國際認證",
+    accent: "seal",
+    summary: "原廠官方授權的國際證照，涵蓋 Adobe（ACP）與 Autodesk（ACU）系列考科，全球職場通用度高。",
+    subjects: [
+      { code: "ACP", name: "Photoshop", price: 2400 },
+      { code: "ACP", name: "Illustrator", price: 2400 },
+      { code: "ACU", name: "AutoCAD", price: 2400 },
+      { code: "ACU", name: "Revit", price: 2400 },
+      { code: "ACU", name: "3ds Max", price: 2400 }
+    ]
+  },
+  {
+    id: "sketchup",
+    org: "SketchUp 國際認證",
+    orgShort: "SketchUp SEC",
+    category: "international",
+    categoryLabel: "SketchUp 國際認證",
+    accent: "tech",
+    summary: "SketchUp Certified Expert / Certified User，聚焦 3D 建模應用能力，室內設計與建築系學生常見選項。",
+    subjects: [
+      { code: "SEC", name: "SketchUp", price: 3600 }
+    ]
+  },
+  {
+    id: "iii-ai",
+    org: "資策會（III）生成式 AI 認證",
+    orgShort: "資策會 · 生成式 AI",
+    category: "ai",
+    categoryLabel: "資策會（III）生成式 AI 認證",
+    accent: "tech",
+    summary: "因應生成式 AI 職能需求推出的檢定系列，涵蓋工程素養、美術設計與辦公室應用等面向。",
+    subjects: [
+      { code: null, name: "人工智慧工程素養認證", price: 1170 },
+      { code: null, name: "生成式AI美術設計能力認證（初級）", price: 1800 },
+      { code: null, name: "生成式AI美術設計能力認證（中級）", price: 3240 },
+      { code: null, name: "生成式AI能力認證", price: 1170 },
+      { code: null, name: "生成式AI辦公室應用能力認證", price: 1800 }
+    ]
+  }
+];
+
+const CATEGORIES = [
+  { id: "all", label: "全部考科" },
+  { id: "design", label: "平面 / 網頁 / 建築設計" },
+  { id: "international", label: "國際認證" },
+  { id: "ai", label: "生成式 AI" }
+];
+
+// ============ STATE ============
+let activeCategory = "all";
+let searchQuery = "";
+
+// ============ RENDER: TABS ============
+const tabBar = document.getElementById("tabBar");
+function renderTabs(){
+  tabBar.innerHTML = CATEGORIES.map(cat => `
+    <button
+      class="tab-btn shrink-0 px-4 py-3.5 text-[13.5px] whitespace-nowrap ${cat.id === activeCategory ? 'active' : 'text-[var(--graphite)]/60'}"
+      data-cat="${cat.id}"
+    >${cat.label}</button>
+  `).join("");
+
+  tabBar.querySelectorAll(".tab-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      activeCategory = btn.dataset.cat;
+      renderTabs();
+      renderCards();
+    });
+  });
+}
+
+// ============ RENDER: CARDS ============
+const cardGrid = document.getElementById("cardGrid");
+const emptyState = document.getElementById("emptyState");
+const resultCount = document.getElementById("resultCount");
+
+function formatPrice(n){
+  return "NT$ " + n.toLocaleString("en-US");
+}
+
+function matchesQuery(cert, q){
+  if(!q) return true;
+  const haystack = [
+    cert.org, cert.orgShort, cert.categoryLabel, cert.summary,
+    ...cert.subjects.map(s => [s.code, s.name, formatPrice(s.price)].filter(Boolean).join(" "))
+  ].join(" ").toLowerCase();
+  return haystack.includes(q.toLowerCase());
+}
+
+function renderCards(){
+  const filtered = CERT_DATA.filter(c =>
+    (activeCategory === "all" || c.category === activeCategory) &&
+    matchesQuery(c, searchQuery)
+  );
+
+  resultCount.textContent = `共 ${filtered.length} 筆認證資訊`;
+
+  if(filtered.length === 0){
+    cardGrid.innerHTML = "";
+    emptyState.style.display = "block";
+    return;
+  }
+  emptyState.style.display = "none";
+
+  cardGrid.innerHTML = filtered.map(cert => `
+    <article class="cert-card rounded-xl p-6 sm:p-7">
+      <div class="flex items-start justify-between gap-4 mb-4">
+        <div>
+          <p class="font-mono text-[11px] tracking-widest mb-1.5" style="color:${cert.accent==='tech' ? 'var(--tech)' : 'var(--seal)'};">${cert.categoryLabel}</p>
+          <h2 class="font-display text-lg sm:text-xl font-bold leading-snug" style="color:var(--ink);">${cert.org}</h2>
+        </div>
+        <div class="seal ${cert.accent === 'tech' ? 'tech' : ''}">
+          <span class="seal-label">考科</span>
+          <span class="seal-price">${cert.subjects.length} 科</span>
+        </div>
+      </div>
+
+      <p class="text-[13.5px] leading-relaxed text-[var(--graphite)]/85 mb-4">${cert.summary}</p>
+
+      <div class="flex flex-wrap gap-1.5 mb-5">
+        ${cert.subjects.map(s => `<span class="chip inline-block px-2.5 py-1 rounded-md border" style="border-color:var(--line); color:var(--ink);">${s.name}</span>`).join("")}
+      </div>
+
+      <details class="border-t pt-4" open style="border-color:var(--line);">
+        <summary class="flex items-center justify-between font-mono text-[12px] tracking-wide" style="color:var(--ink);">
+          <span>考科與報名費用</span>
+          <svg class="chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="overflow-x-auto mt-3">
+          <table class="detail-table w-full">
+            <thead>
+              <tr>
+                <th>考科</th>
+                <th>代碼</th>
+                <th>費用</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${cert.subjects.map(s => `
+                <tr>
+                  <td style="color:var(--ink); font-weight:500;">${s.name}</td>
+                  <td class="text-[var(--graphite)]/60 font-mono">${s.code ? s.code : "—"}</td>
+                  <td class="font-mono font-semibold" style="color:${cert.accent==='tech' ? '#0f7a70' : 'var(--seal)'};">${formatPrice(s.price)}</td>
+                </tr>
+              `).join("")}
+            </tbody>
+          </table>
+        </div>
+      </details>
+    </article>
+  `).join("");
+}
+
+// ============ EVENTS ============
+document.getElementById("searchInput").addEventListener("input", (e) => {
+  searchQuery = e.target.value.trim();
+  renderCards();
+});
+
+const menuBtn = document.getElementById("menuBtn");
+const mobileMenu = document.getElementById("mobileMenu");
+menuBtn.addEventListener("click", () => {
+  const isHidden = mobileMenu.classList.contains("hidden");
+  mobileMenu.classList.toggle("hidden");
+  menuBtn.setAttribute("aria-expanded", String(isHidden));
+});
+
+// ============ INIT ============
+renderTabs();
+renderCards();
+</script>
+
+</body>
+</html>
