@@ -296,6 +296,7 @@ const CERT_DATA = [
     category: "design",
     categoryLabel: "TQC+ 專業設計人才認證",
     accent: "seal",
+    url: "https://www.tqcplus.org.tw/CertificateDetail.aspx?CODE=y/zEfkGeQhM=",
     summary: "台灣在地最普及的設計類技能檢定，本頁列出的考科聚焦程式與資料應用相關科目。",
     subjects: [
       { code: "PPY3", name: "程式語言", price: 1500 },
@@ -311,6 +312,7 @@ const CERT_DATA = [
     category: "international",
     categoryLabel: "Certiport 國際認證",
     accent: "seal",
+    url: "https://certiport.pearsonvue.com/Certifications/Adobe/ACP/Certify.aspx",
     summary: "原廠官方授權的國際證照，涵蓋 Adobe（ACP）、Autodesk（ACU）與 IT Specialist（ITS）系列考科，全球職場通用度高。",
     subjects: [
       { code: "ACP", name: "Photoshop", price: 2400 },
@@ -329,9 +331,10 @@ const CERT_DATA = [
     category: "international",
     categoryLabel: "SketchUp 國際認證",
     accent: "tech",
+    url: "https://condata-ai.com/sketchup-atc/",
     summary: "SketchUp Certified Expert / Certified User，聚焦 3D 建模應用能力，室內設計與建築系學生常見選項。",
     subjects: [
-      { code: "SEC", name: "SketchUp", price: 3600 }
+      { code: "SCE", name: "SketchUp", price: 3600 }
     ]
   },
   {
@@ -341,6 +344,7 @@ const CERT_DATA = [
     category: "ai",
     categoryLabel: "資策會（III）生成式 AI 認證",
     accent: "tech",
+    url: "https://www.iiiedu.org.tw/certifications/exam/6",
     summary: "因應生成式 AI 職能需求推出的檢定系列，涵蓋工程素養、美術設計與辦公室應用等面向。",
     subjects: [
       { code: null, name: "人工智慧工程素養認證", price: 1170 },
@@ -357,6 +361,7 @@ const CERT_DATA = [
     category: "government",
     categoryLabel: "勞動部全國技術士技能檢定",
     accent: "seal",
+    url: "https://skill.tcte.edu.tw/notice.php",
     summary: "由勞動部主辦的國家級技術士證照，室內裝修相關乙級證照為業界承攬工程、申請室裝業執照的常見門檻。",
     subjects: [
       { code: null, name: "建築物室內裝修工程管理乙級", price: 1540 },
@@ -370,6 +375,7 @@ const CERT_DATA = [
     category: "it",
     categoryLabel: "Red Hat 紅帽認證",
     accent: "tech",
+    url: "https://www.redhat.com/zh-tw/services/training-and-certification",
     summary: "國際級 Linux 系統管理與工程師認證，IT 基礎設施與雲端維運領域的重要職能證明。",
     subjects: [
       { code: null, name: "RHCE", price: 5500 },
@@ -448,7 +454,14 @@ function renderCards(){
       <div class="flex items-start justify-between gap-4 mb-4">
         <div>
           <p class="font-mono text-[11px] tracking-widest mb-1.5" style="color:${cert.accent==='tech' ? 'var(--tech)' : 'var(--seal)'};">${cert.categoryLabel}</p>
-          <h2 class="font-display text-lg sm:text-xl font-bold leading-snug" style="color:var(--ink);">${cert.org}</h2>
+          <h2 class="font-display text-lg sm:text-xl font-bold leading-snug" style="color:var(--ink);">
+            ${cert.url
+              ? `<a href="${cert.url}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 hover:underline decoration-2 underline-offset-2" style="text-decoration-color:${cert.accent==='tech' ? 'var(--tech)' : 'var(--seal)'};">
+                  <span>${cert.org}</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 shrink-0"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                 </a>`
+              : cert.org}
+          </h2>
         </div>
         <div class="seal ${cert.accent === 'tech' ? 'tech' : ''}">
           <span class="seal-label">考科</span>
