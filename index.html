@@ -311,13 +311,15 @@ const CERT_DATA = [
     category: "international",
     categoryLabel: "Certiport 國際認證",
     accent: "seal",
-    summary: "原廠官方授權的國際證照，涵蓋 Adobe（ACP）與 Autodesk（ACU）系列考科，全球職場通用度高。",
+    summary: "原廠官方授權的國際證照，涵蓋 Adobe（ACP）、Autodesk（ACU）與 IT Specialist（ITS）系列考科，全球職場通用度高。",
     subjects: [
       { code: "ACP", name: "Photoshop", price: 2400 },
       { code: "ACP", name: "Illustrator", price: 2400 },
       { code: "ACU", name: "AutoCAD", price: 2400 },
       { code: "ACU", name: "Revit", price: 2400 },
-      { code: "ACU", name: "3ds Max", price: 2400 }
+      { code: "ACU", name: "3ds Max", price: 2400 },
+      { code: "ITS", name: "Java", price: 2400 },
+      { code: "ITS", name: "Python", price: 2400 }
     ]
   },
   {
@@ -347,6 +349,32 @@ const CERT_DATA = [
       { code: null, name: "生成式AI能力認證", price: 1170 },
       { code: null, name: "生成式AI辦公室應用能力認證", price: 1800 }
     ]
+  },
+  {
+    id: "labor-skill",
+    org: "勞動部全國技術士技能檢定",
+    orgShort: "全國技術士技能檢定",
+    category: "government",
+    categoryLabel: "勞動部全國技術士技能檢定",
+    accent: "seal",
+    summary: "由勞動部主辦的國家級技術士證照，室內裝修相關乙級證照為業界承攬工程、申請室裝業執照的常見門檻。",
+    subjects: [
+      { code: null, name: "建築物室內裝修工程管理乙級", price: 1540 },
+      { code: null, name: "建築物室內設計乙級", price: 1595 }
+    ]
+  },
+  {
+    id: "redhat",
+    org: "Red Hat 紅帽認證",
+    orgShort: "Red Hat",
+    category: "it",
+    categoryLabel: "Red Hat 紅帽認證",
+    accent: "tech",
+    summary: "國際級 Linux 系統管理與工程師認證，IT 基礎設施與雲端維運領域的重要職能證明。",
+    subjects: [
+      { code: null, name: "RHCE", price: 5500 },
+      { code: null, name: "RHCSA", price: 5800 }
+    ]
   }
 ];
 
@@ -354,7 +382,9 @@ const CATEGORIES = [
   { id: "all", label: "全部考科" },
   { id: "design", label: "平面 / 網頁 / 建築設計" },
   { id: "international", label: "國際認證" },
-  { id: "ai", label: "生成式 AI" }
+  { id: "ai", label: "生成式 AI" },
+  { id: "government", label: "政府技術士" },
+  { id: "it", label: "IT 基礎設施" }
 ];
 
 // ============ STATE ============
