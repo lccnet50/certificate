@@ -302,7 +302,8 @@ const CERT_DATA = [
       { code: "PPY3", name: "程式語言", price: 1500 },
       { code: "PSK3", name: "軟體開發知識", price: 800 },
       { code: "PWA3", name: "網頁資料擷取與分析", price: 1800 },
-      { code: "PML3", name: "人工智慧：機器學習", price: 1800 }
+      { code: "PML3", name: "人工智慧：機器學習", price: 1800 },
+      { code: "PDC3", name: "電腦繪圖概論與數位色彩配色", price: 800, categories: ["international"] }
     ]
   },
   {
@@ -313,15 +314,18 @@ const CERT_DATA = [
     categoryLabel: "Certiport 國際認證",
     accent: "seal",
     url: "https://certiport.pearsonvue.com/Certifications/Adobe/ACP/Certify.aspx",
-    summary: "原廠官方授權的國際證照，涵蓋 Adobe（ACP）、Autodesk（ACU）與 IT Specialist（ITS）系列考科，全球職場通用度高。",
+    summary: "原廠官方授權的國際證照，涵蓋 Adobe（ACP）、Autodesk（ACU）、IT Specialist（ITS）與 Microsoft（MOS）系列考科，全球職場通用度高。",
     subjects: [
       { code: "ACP", name: "Photoshop", price: 2400 },
       { code: "ACP", name: "Illustrator", price: 2400 },
-      { code: "ACU", name: "AutoCAD", price: 2400 },
-      { code: "ACU", name: "Revit", price: 2400 },
-      { code: "ACU", name: "3ds Max", price: 2400 },
-      { code: "ITS", name: "Java", price: 2400 },
-      { code: "ITS", name: "Python", price: 2400 }
+      { code: "ACU", name: "AutoCAD", price: 2400, categories: ["interior"] },
+      { code: "ACU", name: "Revit", price: 2400, categories: ["interior"] },
+      { code: "ACU", name: "3ds Max", price: 2400, categories: ["interior"] },
+      { code: "ITS", name: "Java", price: 2400, categories: ["design"] },
+      { code: "ITS", name: "Python", price: 2400, categories: ["design"] },
+      { code: "MOS", name: "Microsoft Word", price: 2400, categories: ["office"] },
+      { code: "MOS", name: "Microsoft Excel", price: 2400, categories: ["office"] },
+      { code: "MOS", name: "Microsoft PowerPoint", price: 2400, categories: ["office"] }
     ]
   },
   {
@@ -334,7 +338,7 @@ const CERT_DATA = [
     url: "https://condata-ai.com/sketchup-atc/",
     summary: "SketchUp Certified Expert / Certified User，聚焦 3D 建模應用能力，室內設計與建築系學生常見選項。",
     subjects: [
-      { code: "SCE", name: "SketchUp", price: 3600 }
+      { code: "SCE", name: "SketchUp", price: 3600, categories: ["interior"] }
     ]
   },
   {
@@ -347,11 +351,11 @@ const CERT_DATA = [
     url: "https://www.iiiedu.org.tw/certifications/exam/6",
     summary: "因應生成式 AI 職能需求推出的檢定系列，涵蓋工程素養、美術設計與辦公室應用等面向。",
     subjects: [
-      { code: null, name: "人工智慧工程素養認證", price: 1170 },
-      { code: null, name: "生成式AI美術設計能力認證（初級）", price: 1800 },
-      { code: null, name: "生成式AI美術設計能力認證（中級）", price: 3240 },
-      { code: null, name: "生成式AI能力認證", price: 1170 },
-      { code: null, name: "生成式AI辦公室應用能力認證", price: 1800 }
+      { code: null, name: "人工智慧工程素養認證", price: 1170, categories: ["ai", "office"] },
+      { code: null, name: "生成式AI美術設計能力認證（初級）", price: 1800, categories: ["international"] },
+      { code: null, name: "生成式AI美術設計能力認證（中級）", price: 3240, categories: ["international"] },
+      { code: null, name: "生成式AI能力認證", price: 1170, categories: ["ai", "office"] },
+      { code: null, name: "生成式AI辦公室應用能力認證", price: 1800, categories: ["ai", "office"] }
     ]
   },
   {
@@ -364,15 +368,15 @@ const CERT_DATA = [
     url: "https://skill.tcte.edu.tw/notice.php",
     summary: "由勞動部主辦的國家級技術士證照，室內裝修相關乙級證照為業界承攬工程、申請室裝業執照的常見門檻。",
     subjects: [
-      { code: null, name: "建築物室內裝修工程管理乙級", price: 1540 },
-      { code: null, name: "建築物室內設計乙級", price: 1595 }
+      { code: null, name: "建築物室內裝修工程管理乙級", price: 1540, categories: ["government", "interior"] },
+      { code: null, name: "建築物室內設計乙級", price: 1595, categories: ["government", "interior"] }
     ]
   },
   {
     id: "redhat",
     org: "Red Hat 紅帽認證",
     orgShort: "Red Hat",
-    category: "it",
+    category: "design",
     categoryLabel: "Red Hat 紅帽認證",
     accent: "tech",
     url: "https://www.redhat.com/zh-tw/services/training-and-certification",
@@ -386,11 +390,10 @@ const CERT_DATA = [
 
 const CATEGORIES = [
   { id: "all", label: "全部考科" },
-  { id: "design", label: "平面 / 網頁 / 建築設計" },
-  { id: "international", label: "國際認證" },
-  { id: "ai", label: "生成式 AI" },
-  { id: "government", label: "政府技術士" },
-  { id: "it", label: "IT 基礎設施" }
+  { id: "design", label: "程式設計" },
+  { id: "international", label: "平面設計" },
+  { id: "interior", label: "室內設計" },
+  { id: "office", label: "辦公室技能" }
 ];
 
 // ============ STATE ============
@@ -425,31 +428,54 @@ function formatPrice(n){
   return "NT$ " + n.toLocaleString("en-US");
 }
 
-function matchesQuery(cert, q){
+// A subject belongs to its card's category by default, unless it declares its own list
+function subjectCategories(cert, subject){
+  return subject.categories || [cert.category];
+}
+
+// Subjects to display for a card, given the active category tab
+function visibleSubjects(cert, category){
+  if(category === "all") return cert.subjects;
+  return cert.subjects.filter(s => subjectCategories(cert, s).includes(category));
+}
+
+function subjectMatchesQuery(s, q){
   if(!q) return true;
-  const haystack = [
-    cert.org, cert.orgShort, cert.categoryLabel, cert.summary,
-    ...cert.subjects.map(s => [s.code, s.name, formatPrice(s.price)].filter(Boolean).join(" "))
-  ].join(" ").toLowerCase();
+  const haystack = [s.code, s.name, formatPrice(s.price)].filter(Boolean).join(" ").toLowerCase();
   return haystack.includes(q.toLowerCase());
 }
 
+function matchesQuery(cert, q){
+  if(!q) return true;
+  const orgHaystack = [cert.org, cert.orgShort, cert.categoryLabel, cert.summary].join(" ").toLowerCase();
+  if(orgHaystack.includes(q.toLowerCase())) return true;
+  return cert.subjects.some(s => subjectMatchesQuery(s, q));
+}
+
 function renderCards(){
-  const filtered = CERT_DATA.filter(c =>
-    (activeCategory === "all" || c.category === activeCategory) &&
-    matchesQuery(c, searchQuery)
-  );
+  const results = CERT_DATA.map(cert => {
+    const catSubjects = visibleSubjects(cert, activeCategory);
+    if(catSubjects.length === 0) return null;
 
-  resultCount.textContent = `共 ${filtered.length} 筆認證資訊`;
+    const orgHaystack = [cert.org, cert.orgShort, cert.categoryLabel, cert.summary].join(" ").toLowerCase();
+    const orgMatches = !searchQuery || orgHaystack.includes(searchQuery.toLowerCase());
 
-  if(filtered.length === 0){
+    const tableSubjects = orgMatches ? catSubjects : catSubjects.filter(s => subjectMatchesQuery(s, searchQuery));
+    if(tableSubjects.length === 0) return null;
+
+    return { cert, tableSubjects };
+  }).filter(Boolean);
+
+  resultCount.textContent = `共 ${results.length} 筆認證資訊`;
+
+  if(results.length === 0){
     cardGrid.innerHTML = "";
     emptyState.style.display = "block";
     return;
   }
   emptyState.style.display = "none";
 
-  cardGrid.innerHTML = filtered.map(cert => `
+  cardGrid.innerHTML = results.map(({ cert, tableSubjects }) => `
     <article class="cert-card rounded-xl p-6 sm:p-7">
       <div class="flex items-start justify-between gap-4 mb-4">
         <div>
@@ -465,14 +491,14 @@ function renderCards(){
         </div>
         <div class="seal ${cert.accent === 'tech' ? 'tech' : ''}">
           <span class="seal-label">考科</span>
-          <span class="seal-price">${cert.subjects.length} 科</span>
+          <span class="seal-price">${tableSubjects.length} 科</span>
         </div>
       </div>
 
       <p class="text-[13.5px] leading-relaxed text-[var(--graphite)]/85 mb-4">${cert.summary}</p>
 
       <div class="flex flex-wrap gap-1.5 mb-5">
-        ${cert.subjects.map(s => `<span class="chip inline-block px-2.5 py-1 rounded-md border" style="border-color:var(--line); color:var(--ink);">${s.name}</span>`).join("")}
+        ${tableSubjects.map(s => `<span class="chip inline-block px-2.5 py-1 rounded-md border" style="border-color:var(--line); color:var(--ink);">${s.name}</span>`).join("")}
       </div>
 
       <details class="border-t pt-4" open style="border-color:var(--line);">
@@ -490,7 +516,7 @@ function renderCards(){
               </tr>
             </thead>
             <tbody>
-              ${cert.subjects.map(s => `
+              ${tableSubjects.map(s => `
                 <tr>
                   <td style="color:var(--ink); font-weight:500;">${s.name}</td>
                   <td class="text-[var(--graphite)]/60 font-mono">${s.code ? s.code : "—"}</td>
