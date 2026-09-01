@@ -6,17 +6,17 @@
 <title>設計與 AI 專業認證指南</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@500;700;900&family=Noto+Sans+TC:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#0F2544;
-    --ink-2:#173562;
-    --paper:#F6F7FB;
-    --seal:#2454A6;
-    --seal-dark:#1B3E80;
-    --tech:#0E7C86;
-    --graphite:#454B5C;
-    --line:#E2E5EC;
+    --ink:#14213D;
+    --ink-2:#1E2E52;
+    --paper:#FAFAF7;
+    --seal:#C1272D;
+    --seal-dark:#8f1c21;
+    --tech:#2EC4B6;
+    --graphite:#4A4A58;
+    --line:#E2DFD6;
   }
   *{box-sizing:border-box;}
   body{
@@ -24,45 +24,74 @@
     background:var(--paper);
     color:var(--graphite);
   }
-  .font-display{ font-family:'Noto Sans TC', sans-serif; font-weight:700; }
+  .font-display{ font-family:'Noto Serif TC', serif; }
   .font-mono{ font-family:'IBM Plex Mono', monospace; }
 
-  /* ---- Subject-count badge ---- */
+  /* ---- Ruler / blueprint divider ---- */
+  .ruler{
+    height:14px;
+    background-image: repeating-linear-gradient(
+      to right,
+      rgba(250,249,247,0.35) 0,
+      rgba(250,249,247,0.35) 1px,
+      transparent 1px,
+      transparent 8px
+    ),
+    repeating-linear-gradient(
+      to right,
+      rgba(250,249,247,0.75) 0,
+      rgba(250,249,247,0.75) 1px,
+      transparent 1px,
+      transparent 40px
+    );
+    background-color: var(--ink-2);
+  }
+
+  /* ---- Seal / stamp badge ---- */
   .seal{
     position:relative;
+    width:74px;
+    height:74px;
+    border-radius:9999px;
+    border:2.5px solid var(--seal);
+    color:var(--seal);
     display:flex;
     align-items:center;
     justify-content:center;
     flex-direction:column;
-    min-width:68px;
-    padding:9px 12px;
-    border-radius:8px;
-    background:#EAF1FB;
-    border:1px solid rgba(36,84,166,0.18);
-    color:var(--seal);
+    transform:rotate(-9deg);
+    background:
+      repeating-radial-gradient(circle at 50% 50%, rgba(193,39,45,0.05) 0 2px, transparent 2px 4px);
     flex-shrink:0;
-    transition: background .2s ease, border-color .2s ease;
+    transition:transform .35s ease;
   }
-  .cert-card:hover .seal{ background:#DEE9F9; border-color: rgba(36,84,166,0.3); }
+  .seal::before{
+    content:"";
+    position:absolute;
+    inset:5px;
+    border-radius:9999px;
+    border:1px solid var(--seal);
+    opacity:.55;
+  }
+  .cert-card:hover .seal{ transform:rotate(0deg) scale(1.06); }
   .seal .seal-label{
     font-size:9px;
-    letter-spacing:.08em;
-    font-weight:600;
+    letter-spacing:.1em;
+    font-family:'Noto Serif TC', serif;
     line-height:1;
-    opacity:.7;
   }
   .seal .seal-price{
     font-family:'IBM Plex Mono', monospace;
-    font-size:11.5px;
-    font-weight:700;
+    font-size:10.5px;
+    font-weight:600;
     line-height:1.3;
-    margin-top:3px;
+    margin-top:2px;
     text-align:center;
   }
 
-  /* tech-accent badge variant for AI / SketchUp category */
-  .seal.tech{ background:#E5F2F1; border-color:rgba(14,124,134,0.2); color:var(--tech); }
-  .cert-card:hover .seal.tech{ background:#D8EDEC; border-color:rgba(14,124,134,0.32); }
+  /* tech-accent seal variant for AI category */
+  .seal.tech{ border-color:var(--tech); color:#0f7a70; }
+  .seal.tech::before{ border-color:var(--tech); }
 
   .cert-card{
     background:#fff;
@@ -120,6 +149,14 @@
 
   .no-results{ display:none; }
 
+  /* subtle grid backdrop for hero, blueprint feel */
+  .blueprint-grid{
+    background-image:
+      linear-gradient(rgba(250,249,247,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(250,249,247,0.06) 1px, transparent 1px);
+    background-size: 28px 28px;
+  }
+
   ::selection{ background: var(--seal); color:#fff; }
 
   @media (prefers-reduced-motion: reduce){
@@ -136,13 +173,16 @@
 
 <!-- ============ HERO ============ -->
 <header class="relative overflow-hidden" style="background:var(--ink);">
+  <div class="absolute inset-0 blueprint-grid pointer-events-none"></div>
   <div class="relative max-w-6xl mx-auto px-5 sm:px-8 pt-10 pb-12 sm:pt-14 sm:pb-16">
 
     <!-- top bar -->
     <div class="flex items-center justify-between mb-10 sm:mb-14">
       <div class="flex items-center gap-2.5">
-        <img class="brand-logo h-9 w-auto" alt="聯成電腦 Logo">
-        <span class="font-display text-white tracking-wide text-sm sm:text-base">聯成電腦</span>
+        <div class="w-8 h-8 rounded-full border-2 flex items-center justify-center" style="border-color:var(--seal);">
+          <span class="block w-2 h-2 rounded-full" style="background:var(--seal);"></span>
+        </div>
+        <span class="font-display text-white/90 tracking-wide text-sm sm:text-base">聯成電腦</span>
       </div>
       <nav class="hidden sm:flex items-center gap-7 font-mono text-[12.5px] text-white/60">
         <a href="#catalog" class="hover:text-white transition-colors">考科總覽</a>
@@ -173,12 +213,13 @@
       <div class="relative">
         <svg class="absolute left-4 top-1/2 -translate-y-1/2 text-white/40" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
         <input id="searchInput" type="text" placeholder="搜尋考科、機構或關鍵字，例如「Photoshop」、「AutoCAD」、「提示工程」..."
-          class="w-full bg-white/[0.07] border border-white/15 rounded-md pl-11 pr-4 py-3.5 text-white text-[14px] placeholder-white/35 focus:outline-none focus:border-[var(--tech)] focus:bg-white/[0.1] transition-colors font-mono">
+          class="w-full bg-white/[0.07] border border-white/15 rounded-lg pl-11 pr-4 py-3.5 text-white text-[14px] placeholder-white/35 focus:outline-none focus:border-[var(--tech)] focus:bg-white/[0.1] transition-colors font-mono">
       </div>
     </div>
   </div>
+
+  <div class="ruler"></div>
 </header>
-<div class="h-[3px]" style="background:var(--seal);"></div>
 
 <!-- ============ TABS ============ -->
 <div class="sticky top-0 z-20 bg-[var(--paper)]/95 backdrop-blur border-b" style="border-color:var(--line);">
@@ -230,8 +271,8 @@
   <div class="max-w-6xl mx-auto px-5 sm:px-8 py-10 sm:py-12">
     <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-6">
       <div class="flex items-center gap-2.5">
-        <div class="w-7 h-7 rounded-md flex items-center justify-center" style="background:var(--seal);">
-          <span class="block w-2.5 h-2.5 rounded-sm bg-white"></span>
+        <div class="w-7 h-7 rounded-full border-2 flex items-center justify-center" style="border-color:var(--seal);">
+          <span class="block w-1.5 h-1.5 rounded-full" style="background:var(--seal);"></span>
         </div>
         <span class="font-display text-white/80 text-sm">聯成電腦</span>
       </div>
@@ -435,7 +476,7 @@ function renderCards(){
   emptyState.style.display = "none";
 
   cardGrid.innerHTML = results.map(({ cert, tableSubjects }) => `
-    <article class="cert-card rounded-lg p-6 sm:p-7">
+    <article class="cert-card rounded-xl p-6 sm:p-7">
       <div class="flex items-start justify-between gap-4 mb-4">
         <div>
           <p class="font-mono text-[11px] tracking-widest mb-1.5" style="color:${cert.accent==='tech' ? 'var(--tech)' : 'var(--seal)'};">${cert.categoryLabel}</p>
