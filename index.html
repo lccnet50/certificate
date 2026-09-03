@@ -434,6 +434,23 @@ const CERT_DATA = [
       { code: null, name: "RHCE", price: 5500 },
       { code: null, name: "RHCSA", price: 5800 }
     ]
+  },
+  {
+    id: "ipas",
+    org: "iPAS經濟部產業人才能力鑑定",
+    orgShort: "iPAS",
+    category: "design",
+    categoryLabel: "iPAS經濟部產業人才能力鑑定",
+    accent: "tech",
+    url: "https://docs.google.com/presentation/d/1A--qFaeJG5auGubNU8xq4l7LKTVnSeYTgulH9N-8yoM/edit?slide=id.g3f73b39471d_9_0#slide=id.g3f73b39471d_9_0",
+    summary: "經濟部主辦的產業人才能力鑑定，涵蓋 AI 應用、淨零碳規劃與資訊安全等新興職能領域。",
+    note: "專班學生享有 4 次免費考照補助，詳細報名流程可直接點選「iPAS經濟部產業人才能力鑑定」標題查看。",
+    subjects: [
+      { code: null, name: "AI 應用規劃師 - 初級", price: 600 },
+      { code: null, name: "AI 應用規劃師 - 中級", price: 600 },
+      { code: null, name: "淨零碳規劃管理師 - 初級", price: 600 },
+      { code: null, name: "資訊安全工程師 - 初級", price: 600 }
+    ]
   }
 ];
 
@@ -551,6 +568,12 @@ function renderCards(){
       </div>
 
       <p class="text-[13.5px] leading-relaxed text-[var(--graphite)]/85 mb-4">${cert.summary}</p>
+
+      ${cert.note ? `
+        <div class="rounded-xl px-3.5 py-2.5 mb-4 text-[12.5px] leading-relaxed" style="background:#E7F6F3; color:#0f5c53; border:1px solid rgba(63,167,154,0.22);">
+          ${cert.note}
+        </div>
+      ` : ""}
 
       <div class="flex flex-wrap gap-1.5 mb-5">
         ${tableSubjects.map(s => `<span class="chip inline-block px-3 py-1 rounded-full border" style="border-color:var(--line); background:#F8F7FC; color:var(--ink);">${s.name}</span>`).join("")}
@@ -728,7 +751,7 @@ const subjectDropdownChevron = document.getElementById("subjectDropdownChevron")
 const regSelectedChips = document.getElementById("regSelectedChips");
 
 function buildSubjectDropdown(){
-  subjectDropdownPanel.innerHTML = CERT_DATA.map(cert => `
+  subjectDropdownPanel.innerHTML = CERT_DATA.filter(cert => cert.id !== "ipas").map(cert => `
     <div class="px-2 pt-3 pb-1 first:pt-2">
       <p class="text-[11px] font-mono tracking-wide text-[var(--graphite)]/45 px-2 mb-1">${cert.orgShort}</p>
       ${cert.subjects.map(s => `
