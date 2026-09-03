@@ -278,6 +278,11 @@
         <div id="subjectDropdownPanel" class="hidden absolute z-20 mt-2 w-full max-h-72 overflow-y-auto rounded-xl shadow-xl bg-white" style="border:1px solid var(--line);"></div>
 
         <div id="regSelectedChips" class="flex flex-wrap gap-1.5 mt-3"></div>
+
+        <div id="regTotalRow" class="hidden items-center justify-between mt-4 pt-4 border-t" style="border-color:var(--line);">
+          <span class="text-[13px] text-[var(--graphite)]/70">已選考科總金額</span>
+          <span id="regTotal" class="font-mono font-bold text-lg" style="color:var(--seal);">NT$ 0</span>
+        </div>
       </div>
 
       <div class="pt-2">
@@ -757,6 +762,18 @@ function updateRegDropdown(){
         </button>
       </span>`;
   }).join("");
+
+  const regTotalRow = document.getElementById("regTotalRow");
+  const regTotal = document.getElementById("regTotal");
+  if(uids.length > 0){
+    const total = uids.reduce((sum, uid) => sum + regSelectedSubjects[uid].price, 0);
+    regTotal.textContent = formatPrice(total);
+    regTotalRow.classList.remove("hidden");
+    regTotalRow.classList.add("flex");
+  } else {
+    regTotalRow.classList.add("hidden");
+    regTotalRow.classList.remove("flex");
+  }
 }
 
 subjectDropdownBtn.addEventListener("click", () => {
